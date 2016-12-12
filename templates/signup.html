@@ -1,0 +1,54 @@
+<div layout="column" layout-gt-md="row">
+  <div flex="30"></div>
+  <div flex="40">
+    <br>
+    <br>
+    <br>
+    <br>
+    <md-card>
+
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Sign Up</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+              <form ng-submit="validMail() && signUp(user)">
+
+              <div layout="column">
+                <div layout="row">
+                  <md-input-container flex>
+                       <label>First Name</label>
+                       <input ng-model="user.firstname" type="text" autocomplete="off" required>
+                  </md-input-container>
+                  <md-input-container flex>
+                       <label>Last Name</label>
+                       <input ng-model="user.lastname" type="text" autocomplete="off" required>
+                  </md-input-container>
+                </div>
+                <div>
+                  <md-input-container class="md-block">
+                       <label>Email</label>
+                       <md-icon class="material-icons" ng-show="emailAvailable === 0">mail</md-icon>
+                       <md-icon class="material-icons" ng-show="emailAvailable === 1" style="color:#00E676;">check</md-icon>
+                       <md-icon class="material-icons" ng-show="emailAvailable === 2" style="color:#F44336;">not_interested</md-icon>
+                       <input ng-model="user.email" ng-unique type="email" autocomplete="off" required>
+
+                      <p style="color:#F44336;font-size: 10px;" ng-if="user1">Account with this email ID exists</p>
+                  </md-input-container>
+                </div>
+                <div>
+                  <md-input-container class="md-block">
+                       <label>Password</label>
+                       <input ng-model="user.password" type="password" autocomplete="off" required>
+                  </md-input-container>
+                </div>
+              </div>
+              <md-button type="submit" class="md-primary">Sign Up</md-button>
+              </form>
+        </md-card-content>
+
+      </md-card>
+  </div>
+  <div flex="30"></div>
+</div>

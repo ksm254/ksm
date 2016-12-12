@@ -1,0 +1,20 @@
+{
+  "name": "ksm",
+  "version": "1.0.0",
+  "description": "Kshitij Malhara's Project Phase 1",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rohan Purekar & Kshitij Malhara",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^1.0.1"
+
+  },
+  "dependencies": {
+    "angular-material": "http://github.com/angular/bower-material/tarball/v1.1.0-rc2"
+  }
+}

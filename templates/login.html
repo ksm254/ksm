@@ -1,0 +1,40 @@
+<div layout="column" layout-gt-md="row">
+  <div flex="30"></div>
+  <div flex="40">
+    <br>
+    <br>
+    <br>
+    <br>
+    <md-card>
+
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Log In</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+              <form ng-submit="signUp(user)">
+
+              <div layout="column">
+                <div>
+                  <md-input-container class="md-block">
+                       <label>Email</label>
+                       <input ng-model="user.email" type="email" autocomplete="off" required>
+                  </md-input-container>
+                </div>
+                <div>
+                  <md-input-container class="md-block">
+                       <label>Password</label>
+                       <input ng-model="user.password" type="password" autocomplete="off" required>
+                  </md-input-container>
+                </div>
+              </div>
+              <md-button type="submit" class="md-primary">Log In</md-button>
+              <md-button ui-sref="signup" class="md-primary">New User</md-button>
+              </form>
+        </md-card-content>
+
+      </md-card>
+  </div>
+  <div flex="30"></div>
+</div>
