@@ -51,7 +51,7 @@
 			$email_pre = $email[0];
 		    $email_suff = $email[1];
 
-			// $this->pdo->exec("use ksm_plexus");
+			$this->pdo->exec("use ksm_plexus");
 			$stmt = $this->pdo->prepare("SELECT prim_id,f_name,l_name,account_type FROM PM010001 WHERE username_pre=:email_pre AND username_suff = :email_suff AND password = :password ");
 			$stmt->bindParam(":email_pre",$email_pre,PDO::PARAM_STR);
 			$stmt->bindParam(":email_suff",$email_suff,PDO::PARAM_STR);
@@ -72,7 +72,44 @@
 
 		}
 		public function proctorForm($data){
-			echo json_encode($data);
+			$this->pdo->exec("use ksm_plexus");
+			if (isset($data)) {
+				$stmt = $this->pdo->prepare("INSERT INTO PM010002 (f_name,l_name,student_id,branch,shift,yoa,dob,email,phone_number,local_add,perm_add) VALUES (:firstname,:lastname,:studentID,:branch,:shift,:yoa,:myDate,:email,:phone,:Laddress,:Paddress)");
+				$stmt->bindParam(":firstname",$data['firstname'],PDO::PARAM_STR);
+				$stmt->bindParam(":lastname",$data['lastname'],PDO::PARAM_STR);
+				$stmt->bindParam(":studentID",$data['studentID'],PDO::PARAM_STR);
+				$stmt->bindParam(":branch",$data['branch'],PDO::PARAM_STR);
+				$stmt->bindParam(":shift",$data['shift'],PDO::PARAM_STR);
+				$stmt->bindParam(":yoa",$data['yoa'],PDO::PARAM_STR);
+				$stmt->bindParam(":myDate",$data['myDate'],PDO::PARAM_STR);
+				$stmt->bindParam(":email",$data['email'],PDO::PARAM_STR);
+				$stmt->bindParam(":phone",$data['phone'],PDO::PARAM_STR);
+				$stmt->bindParam(":Laddress",$data['Laddress'],PDO::PARAM_STR);
+				$stmt->bindParam(":Paddress",$data['Paddress'],PDO::PARAM_STR);
+				$stmt->execute();
+
+				$stmt = $this->pdo->prepare("SELECT sr_no FROM PM010002 WHERE student_id = :studentID ORDER BY sr_no DESC LIMIT 1");
+				$stmt->bindParam(":studentID",$data['studentID'],PDO::PARAM_STR);
+				$stmt->execute();
+				$FK_02_03 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+				$stmt = $this->pdo->prepare("INSERT INTO PM010003 (student_key_id,father_name,father_occ,father_contact,mother_name,mother_occ,mother_contact,l_guardian_name,l_guardian_contact,doc_name,doc_contact) VALUES (:key,:fathername,:foccupation,:fcontact,:mothername,:moccupation,:mcontact,:guardianname,:gcontact,:docname,:docContact)");
+				$stmt->bindParam(":key",$FK_02_03[0]['sr_no'],PDO::PARAM_STR);
+				$stmt->bindParam(":fathername",$data['fathername'],PDO::PARAM_STR);
+				$stmt->bindParam(":foccupation",$data['foccupation'],PDO::PARAM_STR);
+				$stmt->bindParam(":fcontact",$data['fcontact'],PDO::PARAM_STR);
+				$stmt->bindParam(":mothername",$data['mothername'],PDO::PARAM_STR);
+				$stmt->bindParam(":moccupation",$data['moccupation'],PDO::PARAM_STR);
+				$stmt->bindParam(":mcontact",$data['mcontact'],PDO::PARAM_STR);
+				$stmt->bindParam(":guardianname",$data['guardianname'],PDO::PARAM_STR);
+				$stmt->bindParam(":gcontact",$data['gcontact'],PDO::PARAM_STR);
+				$stmt->bindParam(":docname",$data['docname'],PDO::PARAM_STR);
+				$stmt->bindParam(":docContact",$data['docContact'],PDO::PARAM_STR);
+				$stmt->execute();
+				echo json_encode($FK_02_03);
+
+			}
+
 		}
 		public function uniqueUser($email){
 

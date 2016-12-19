@@ -3,8 +3,15 @@
     .controller('mainPageCtrl',['$scope',function($scope){
         $scope.message = "This is amaziing!!!";
     }])
-    .controller('loginCtrl',['$scope',function($scope){
+    .controller('loginCtrl',['$scope','user',function($scope,user){
+      $scope.msg = "function";
+      $scope.logIn = function(data){
 
+        var $data = angular.toJson(data);
+        user.logIn($scope,$data).then(function(data){
+           console.log(data.data);
+        });
+      }
     }])
     .controller('signUpCtrl',['$scope','user','$state','$mdDialog',function($scope,user,$state,$mdDialog){
       $scope.emailAvailable = 0;
@@ -42,7 +49,11 @@
       $scope.saveProctor = function(data){
         var $data = angular.toJson(data);
         user.saveProctor($scope,$data).then(function(data){
-          console.log(data.data);
+
+          $scope.form1.$setUntouched();
+          $scope.user= " ";
+          $scope.form1.$setPristine();
+
         });
       }
       $scope.shiftList = [
@@ -111,9 +122,9 @@
 				  	     }
 				      });
 			     },
-         login: function(scope,data){
+         logIn: function(scope,data){
 				  return $http.post('/ksm/data/users/login.php',data);
-        },
+         },
          saveProctor : function (scope,data) {
            return $http.post('/ksm/data/users/proctor-form.php',data);
          }

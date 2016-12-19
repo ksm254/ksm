@@ -11,34 +11,38 @@
     </ol>
 
     <div layout="column">
-      <form ng-submit="saveProctor(user)">
+      <form ng-submit="saveProctor(user)" name="form1" novalidate>
 
-
+fname : {{form1.firstname.$pristine}}
+fname : {{form1.firstname.$untouched}}
       <div layout="row">
+
         <md-input-container flex>
              <label>First Name</label>
-             <input ng-model="user.firstname" type="text" autocomplete="off" required>
+
+             <input ng-model="user.firstname" name="firstname" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
+
         <md-input-container flex>
              <label>Last Name</label>
-             <input ng-model="user.lastname" type="text" autocomplete="off" required>
+             <input ng-model="user.lastname" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
       </div>
       <div layout="row">
         <md-input-container flex>
              <label>Student ID</label>
-             <input ng-model="user.studentID" type="text" autocomplete="off" required>
+             <input ng-model="user.studentID" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm>
 								<label>Branch</label>
 								<md-select ng-model="user.branch">
-								<md-option ng-value="branch.value" ng-repeat="branch in branchList" required>{{branch.name}}</md-option>
+								<md-option ng-value="branch.value" ng-repeat="branch in branchList" ng-required="true">{{branch.name}}</md-option>
 								</md-select>
 				</md-input-container>
         <md-input-container class="md-block" flex-gt-sm>
 								<label>Shift</label>
 								<md-select ng-model="user.shift">
-								<md-option ng-value="shift.value" ng-repeat="shift in shiftList" required>{{shift.time}}</md-option>
+								<md-option ng-value="shift.value" ng-repeat="shift in shiftList" ng-required="true">{{shift.time}}</md-option>
 								</md-select>
 				</md-input-container>
       </div>
@@ -46,7 +50,7 @@
         <md-input-container class="md-block" flex-gt-sm>
 								<label>Year of Admission</label>
 								<md-select ng-model="user.yoa">
-								<md-option ng-value="yoa.value" ng-repeat="yoa in yoaList" required>{{yoa.year}}</md-option>
+								<md-option ng-value="yoa.value" ng-repeat="yoa in yoaList" ng-required="true">{{yoa.year}}</md-option>
 								</md-select>
 				</md-input-container>
         <md-datepicker ng-model="user.myDate" md-placeholder="Date of Birth" style="margin-top: 15px;" class="md-block" flex-gt-sm></md-datepicker>
@@ -54,11 +58,11 @@
       <div layout="row">
         <md-input-container flex>
              <label>Email</label>
-             <input ng-model="user.email" type="email" autocomplete="off" required>
+             <input ng-model="user.email" type="email" autocomplete="off" ng-required="true">
         </md-input-container>
         <md-input-container flex>
              <label>Phone Number(M)</label>
-             <input required type="number"  ng-model="user.phone"  />
+             <input ng-required="true" type="number"  ng-model="user.phone"  />
              <!-- min="1111111111"
                max="9999999999" ng-pattern="/^1234567890$/"step="any" name="rate" -->
         </md-input-container>
@@ -66,61 +70,61 @@
       <div layout="row">
         <md-input-container class="md-block" flex-gt-sm>
 							<label>Local Address </label>
-							<input type="text" ng-model="user.Laddress" required autocomplete="off">
+							<input type="text" ng-model="user.Laddress" ng-required="true" autocomplete="off">
 				</md-input-container>
       </div>
       <div layout="row">
         <md-input-container class="md-block" flex-gt-sm>
 							<label>Permanent Address </label>
-							<input type="text" ng-model="user.Paddress" required autocomplete="off">
+							<input type="text" ng-model="user.Paddress" ng-required="true" autocomplete="off">
 				</md-input-container>
       </div>
       <div layout="row">
         <md-input-container flex>
              <label>Father's Name</label>
-             <input ng-model="user.fathername" type="text" autocomplete="off" required>
+             <input ng-model="user.fathername" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
         <md-input-container flex>
              <label>Father's Occupation</label>
-             <input ng-model="user.foccupation" type="text" autocomplete="off" required>
+             <input ng-model="user.foccupation" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
         <md-input-container flex>
              <label>Contact(Email / Phone )</label>
-             <input ng-model="user.fcontact" type="text" autocomplete="off" required>
+             <input ng-model="user.fcontact" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
       </div>
       <div layout="row">
         <md-input-container flex>
              <label>Mother's Name</label>
-             <input ng-model="user.mothername" type="text" autocomplete="off" required>
+             <input ng-model="user.mothername" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
         <md-input-container flex>
              <label>Mother's Occupation</label>
-             <input ng-model="user.moccupation" type="text" autocomplete="off" required>
+             <input ng-model="user.moccupation" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
         <md-input-container flex>
              <label>Contact(Email / Phone )</label>
-             <input ng-model="user.mcontact" type="text" autocomplete="off" required>
+             <input ng-model="user.mcontact" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
       </div>
       <div layout="row">
         <md-input-container flex>
              <label>Local Guardian</label>
-             <input ng-model="user.guardianname" type="text" autocomplete="off" required>
+             <input ng-model="user.guardianname" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
         <md-input-container flex>
              <label>Contact(Phone)</label>
-             <input ng-model="user.gcontact" type="text" autocomplete="off" required>
+             <input ng-model="user.gcontact" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
       </div>
       <div layout="row">
         <md-input-container flex>
              <label>Family Doctor's Name</label>
-             <input ng-model="user.docname" type="text" autocomplete="off" required>
+             <input ng-model="user.docname" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
         <md-input-container flex>
              <label>Contact (Phone)</label>
-             <input ng-model="user.docContact" type="text" autocomplete="off" required>
+             <input ng-model="user.docContact" type="text" autocomplete="off" ng-required="true">
         </md-input-container>
       </div>
       <md-button type="submit" class="md-primary">Submit</md-button>
