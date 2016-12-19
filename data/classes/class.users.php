@@ -61,7 +61,7 @@
 			$user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 			if ($count == 1){
-				$_SESSION['status'] = "true";
+				$_SESSION['status'] = 1;
 				$_SESSION['user_plexus_id'] = $user[0]['prim_id'];
 				$_SESSION['email']=$email_pre."@".$email_suff;
 				$_SESSION['f_name']=$user[0]['f_name'];

@@ -15,23 +15,32 @@ var app = null;
 			.state('home',{
 				url:'/',
 				templateUrl:'templates/login.html',
-				controller:'loginCtrl'
-				// data: {authenticate : false}
+				controller:'loginCtrl',
+				data: {authenticate : false}
 			})
-      // .state('login',{
-      //   url:'/login-page',
-      //   templateUrl:'templates/login.html',
-      //   controller:'loginCtrl'
-      // })
       .state('signup',{
         url:'/sign-up',
         templateUrl:'templates/signup.html',
-        controller:'signUpCtrl'
+        controller:'signUpCtrl',
+        data: {authenticate : false}
       })
-      .state('pform',{
-        url:'/proctor-form',
+      .state('user.pform',{
+        url:'/user/proctor-form',
         templateUrl:'templates/proctor-form.html',
-        controller:'pformCtrl'
+        controller:'pformCtrl',
+        data: {authenticate : true}
+      })
+      .state('user',{
+        abstract: true,
+        // url:'/user',
+        templateUrl:'templates/user/base.html',
+        data: {authenticate : true}
+      })
+      .state('user.home',{
+        url:'/user/home',
+        templateUrl:'templates/user/home.html',
+        controller:'userHomeCtrl',
+        data: {authenticate : true}
       });
 
     		$urlProvider.otherwise('/');
@@ -41,7 +50,23 @@ var app = null;
     		});
 
 		};
-    function run() {
+    function run($rootScope,$state,Authenticate) {
+      $rootScope.$on("$stateChangeStart", function(event,toState,toParams,fromState,fromParams){
+        var connected = Authenticate.isLogged();
+
+        if(toState.data.authenticate)
+        {
+            connected.then( function(msg){
+                console.log(msg.data);
+                if (msg.data == "") {
+                  $state.transitionTo('home');
+                  event.preventDefault();
+                }
+            });
+
+
+        }
+    });
 		};
 
 

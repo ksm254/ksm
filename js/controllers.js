@@ -3,13 +3,34 @@
     .controller('mainPageCtrl',['$scope',function($scope){
         $scope.message = "This is amaziing!!!";
     }])
-    .controller('loginCtrl',['$scope','user',function($scope,user){
-      $scope.msg = "function";
-      $scope.logIn = function(data){
+    .controller('loginCtrl',['$scope','Authenticate','$http','$state','$mdToast',function($scope,Authenticate,$http,$state,$mdToast){
 
+      $scope.incorrectPassword = function() {
+	          	  $mdToast.show($mdToast.simple()
+	          	  	.textContent('Incorrect Password!!')
+	          	  	.position('top left')
+	          	  	);
+	          	};
+      $scope.notVerified = function() {
+	          	  $mdToast.show($mdToast.simple()
+	          	  	.textContent('Please Verify Your account first only then you can login!!')
+	          	  	.position('top left')
+	          	  	);
+	          	};
+
+      $scope.logIn = function(data){
         var $data = angular.toJson(data);
-        user.logIn($scope,$data).then(function(data){
+        Authenticate.logIn($scope,$data).then(function(data){
            console.log(data.data);
+           var user = data.data;
+           if(user){
+             $state.go('user.home',{});
+           }
+           else {
+             $scope.incorrectPassword();
+  					 $scope.msgtxt='Please enter the correct username and password';
+  					 $state.go('home',{});
+           }
         });
       }
     }])
@@ -75,6 +96,15 @@
 ]
 
     }])
+    .controller('userHomeCtrl',['$scope',function($scope){
+        $scope.message = "heelo";
+    }])
+    .controller('profileMenuCtrl',['$scope','Authenticate','$state',function($scope,Authenticate,$state){
+        $scope.logout = function(){
+          Authenticate.logout();
+          $state.go('home',{});
+        }
+    }])
     //#################################################### DIRECTIVES
     .directive('ngUnique', function(user) {
     return {
@@ -122,13 +152,24 @@
 				  	     }
 				      });
 			     },
-         logIn: function(scope,data){
-				  return $http.post('/ksm/data/users/login.php',data);
-         },
          saveProctor : function (scope,data) {
            return $http.post('/ksm/data/users/proctor-form.php',data);
          }
 
+      }
+    }])
+    .factory('Authenticate',['$http',function($http){
+      return {
+        isLogged: function(){
+          var $checkSession = $http.post('/ksm/data/session/checkSession.php');
+          return $checkSession;
+        },
+        logIn: function(scope,data){
+         return $http.post('/ksm/data/session/login.php',data);
+        },
+        logout: function(scope,data) {
+          $http.get('/ksm/data/session/logout.php');
+        }
       }
     }]);
 })();

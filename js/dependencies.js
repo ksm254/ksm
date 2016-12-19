@@ -1,4 +1,4 @@
-/*!  -v1.0.0 - 2016-10-21 */(function(window) {'use strict';
+/*!  -v1.0.0 - 2016-12-19 */(function(window) {'use strict';
 
 /**
  * @description

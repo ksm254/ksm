@@ -1,0 +1,17 @@
+<md-toolbar class="md-primary">
+      <div class="md-toolbar-tools" ng-controller="profileMenuCtrl">
+        <span> <img src="img/logo.jpg" alt="" height="55px" width="55px"/></span>
+        <h1>Pimpri Chinchwad College of Engineering
+        </h1>
+        <md-button aria-label="Home" ui-sref="user.home">
+          Home
+        </md-button>
+        <md-button aria-label="Proctor-Form" ui-sref="user.pform">
+          Proctor Form
+        </md-button>
+        <span flex></span>
+        <md-button aria-label="Proctor-Form" ng-click="logout()">
+          Logout
+        </md-button>
+      </div>
+</md-toolbar>
